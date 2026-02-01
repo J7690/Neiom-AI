@@ -1,0 +1,30 @@
+class AppRoutes {
+  static const home = '/';
+  static const video = '/video';
+  static const image = '/image';
+  static const audio = '/audio';
+  static const voices = '/voices';
+  static const avatars = '/avatars';
+  static const templates = '/templates';
+  static const messaging = '/messaging';
+  static const leads = '/leads';
+  static const visualEditor = '/visual-editor';
+  static const devTools = '/dev-tools';
+  static const strategy = '/strategy';
+  static const knowledge = '/knowledge';
+  static const experiments = '/experiments';
+  static const calendar = '/calendar';
+  static const connections = '/connections';
+  static const analytics = '/analytics';
+  static const adsReco = '/ads-reco';
+  static const dashboard = '/dashboard';
+  static const adsCampaigns = '/ads-campaigns';
+  static const campaignTemplates = '/campaign-templates';
+  static const settings = '/settings';
+  static const brandRules = '/brand-rules';
+  static const marketingStudio = '/marketing-studio';
+  static const contentJobsAdmin = '/content-jobs-admin';
+  static const studioMemoryContext = '/studio-memory-context';
+  static const facebookKnowledge = '/facebook-knowledge';
+  static const studioBrainInsights = '/studio-brain-insights';
+}

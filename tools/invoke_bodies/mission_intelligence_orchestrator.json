@@ -1,0 +1,8 @@
+{
+  "missionId": "fc94a04c-21fa-40f4-83ef-5d496bd61063",
+  "objective": "notoriety",
+  "channel": "facebook",
+  "periodDays": 30,
+  "locale": "fr",
+  "refreshKnowledge": true
+}

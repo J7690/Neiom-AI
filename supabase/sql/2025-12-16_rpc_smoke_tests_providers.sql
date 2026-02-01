@@ -1,0 +1,1 @@
+-- Fichier neutralisé : ancien smoke-test providers, à ne plus utiliser.

@@ -1,0 +1,1 @@
+-- Fichier neutralisé : ancien smoke-test RPC, à ne plus utiliser.
