@@ -1,0 +1,9 @@
+[build]
+  command = "bash ./netlify-build.sh"
+  publish = "nexiom_ai_studio/build/web"
+
+[build.environment]
+  # Optionally pin Node if Netlify complains
+  NODE_VERSION = "20"
+
+# You can also set environment variables for Supabase, etc. in the Netlify UI
