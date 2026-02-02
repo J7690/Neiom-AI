@@ -14,4 +14,6 @@ flutter config --enable-web
 # Build Flutter web app
 cd nexiom_ai_studio
 flutter pub get
-flutter build web --release
+flutter build web --release \
+  --dart-define=SUPABASE_URL=$SUPABASE_URL \
+  --dart-define=SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY
