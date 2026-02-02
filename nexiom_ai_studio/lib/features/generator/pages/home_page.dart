@@ -43,8 +43,7 @@ class HomePage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        _ResponsiveFeatureRow(
                           children: [
                             _FeatureCard(
                               icon: Icons.person_pin_outlined,
@@ -89,8 +88,7 @@ class HomePage extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 24),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        _ResponsiveFeatureRow(
                           children: [
                             _FeatureCard(
                               icon: Icons.build_circle_outlined,
@@ -119,8 +117,7 @@ class HomePage extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 24),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        _ResponsiveFeatureRow(
                           children: [
                             _FeatureCard(
                               icon: Icons.menu_book_outlined,
@@ -149,8 +146,7 @@ class HomePage extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 24),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        _ResponsiveFeatureRow(
                           children: [
                             _FeatureCard(
                               icon: Icons.dashboard_customize_outlined,
@@ -163,8 +159,7 @@ class HomePage extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 24),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        _ResponsiveFeatureRow(
                           children: [
                             _FeatureCard(
                               icon: Icons.link_outlined,
@@ -201,8 +196,7 @@ class HomePage extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 24),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        _ResponsiveFeatureRow(
                           children: [
                             _FeatureCard(
                               icon: Icons.description,
@@ -251,8 +245,7 @@ class HomePage extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 24),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        _ResponsiveFeatureRow(
                           children: [
                             _FeatureCard(
                               icon: Icons.verified_outlined,
@@ -292,56 +285,107 @@ class _FeatureCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(24),
-        child: Container(
-          padding: const EdgeInsets.all(24),
-          margin: const EdgeInsets.symmetric(horizontal: 8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
-            gradient: const LinearGradient(
-              colors: [
-                Color(0xFF0F172A),
-                Color(0xFF1E293B),
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+    final isMobile = MediaQuery.of(context).size.width < 700;
+
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(24),
+      child: Container(
+        padding: EdgeInsets.all(isMobile ? 16 : 24),
+        margin: const EdgeInsets.symmetric(horizontal: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          gradient: const LinearGradient(
+            colors: [
+              Color(0xFF0F172A),
+              Color(0xFF1E293B),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black54,
+              blurRadius: 16,
+              offset: Offset(0, 12),
             ),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black54,
-                blurRadius: 16,
-                offset: Offset(0, 12),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(icon, size: 36, color: Colors.cyanAccent),
+            const SizedBox(height: 16),
+            Text(
+              title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: (isMobile
+                      ? Theme.of(context).textTheme.titleMedium
+                      : Theme.of(context).textTheme.titleLarge)
+                  ?.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
               ),
-            ],
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(icon, size: 36, color: Colors.cyanAccent),
-              const SizedBox(height: 16),
-              Text(
-                title,
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                description,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: Colors.white70),
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              description,
+              maxLines: isMobile ? 3 : null,
+              overflow:
+                  isMobile ? TextOverflow.ellipsis : TextOverflow.visible,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(color: Colors.white70),
+            ),
+          ],
         ),
       ),
+    );
+  }
+}
+
+class _ResponsiveFeatureRow extends StatelessWidget {
+  final List<Widget> children;
+
+  const _ResponsiveFeatureRow({required this.children});
+
+  @override
+  Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final isMobile = width < 700;
+
+    if (isMobile) {
+      final cardWidth = width * 0.75;
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Row(
+          children: children
+              .map(
+                (child) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: SizedBox(
+                    width: cardWidth,
+                    child: child,
+                  ),
+                ),
+              )
+              .toList(),
+        ),
+      );
+    }
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: children
+          .map(
+            (child) => Expanded(child: child),
+          )
+          .toList(),
     );
   }
 }
