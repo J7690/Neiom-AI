@@ -7,3 +7,8 @@
   NODE_VERSION = "20"
 
 # You can also set environment variables for Supabase, etc. in the Netlify UI
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
